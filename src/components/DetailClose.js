@@ -1,5 +1,7 @@
 
-import React from "react";
+import React  from "react";
+
+
 
 
 
@@ -10,15 +12,16 @@ class DetailClose extends React.Component{
 
 this.state={
   numeroHijo:false,
+  userSelect:""
+  
 
 }
 
   }
+  
+  
 
-    Carga=()=>{
-      console.log(this.state)
-      console.log(this.props)
-    }
+ 
 
 DetailOff=()=>{
 
@@ -28,39 +31,43 @@ DetailOff=()=>{
  
   this.props.handlePadre(numeroHijo);
   console.log(numeroHijo);
-  console.log(this.state)
+  
 };
-    render(){
-      
-        
-  return (
-    
-<div className="row">
 
-<div className="row">
-    <div className="col s12 m6">
-      <div className="card">
-        <div className="card-image">
-          <img src="../logo192.png" alt="Logo"></img>
-          <span className="card-title">Card Title</span>
-          <div onClick={this.DetailOff} className="btn-floating halfway-fab waves-effect waves-light red">CLOSE</div>
+
+    render(){
+    
+     
+  return (
+  
+      <div className="row detalle  ">
+
+
+
+
+          <div className="col detalle s12 m11 l7 center-align">
+              <div className=" col s12 m12 l12 detalle">
+                  <div className="Info">
+                      <div className="card center-align Info" >
+                          <div className="col s12 m5 l5 img-detalle Info">
+            <img src={this.props.userdetail.picture.large} alt="Logo" className="circle responsive-img img-detalle Info"></img>
+       </div>
+                          <div className="col s12 m7 l7 center-align Info">
+                         
+        <h3>{this.props.userdetail.name.first} {this.props.userdetail.name.last}</h3>
+        <h6>{this.props.userdetail.email}</h6>
+        <h5>{this.props.userdetail.location.street.number} {this.props.userdetail.location.street.name}</h5>
+                              <h5>{this.props.userdetail.location.city} </h5>
+                              <h5>{this.props.userdetail.location.state}</h5>
+                              <h5>{this.props.userdetail.location.country}</h5>
+                          </div>
         </div>
-        <div className="card-content">
-          <p>SECCION DE CARGA DE DATOS DE USUARIO</p>
-        </div>
-      </div>
+                      <div onClick={this.DetailOff} className="btn-floating light red">CLOSE</div>
+                  </div>
+       
     </div>
   </div>
 
-
-
-
-
-  
-    
-  
-  
-      
 </div>
   );
 };

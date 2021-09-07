@@ -2,6 +2,7 @@ import React from 'react';
 import DetailClose from './components/DetailClose';
 import axios from 'axios';
 import UsersList from './components/UsersList';
+import User from './components/User';
 import 'materialize-css/dist/css/materialize.min.css';
 
 
@@ -12,7 +13,7 @@ export default class App extends React.Component {
     super(props);
 
     this.handlePadre = this.handlePadre.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePadre = this.handlePadre.bind(this);
 
   this.state = {
     
@@ -23,7 +24,8 @@ export default class App extends React.Component {
     isLoading: false,
     picture:"",
     userdetail: "",
-    errorMsg: ''
+    errorMsg: '',
+    userselected:""
    
   };
 }
@@ -50,7 +52,7 @@ export default class App extends React.Component {
   
       this.setState({ isLoading: true});
       const response = await axios.get(
-        `https://randomuser.me/api/?page=${page}&results=10`
+        `https://randomuser.me/api/?page=${page}&results=12`
       );
       console.log(response.data);
       
@@ -78,10 +80,6 @@ export default class App extends React.Component {
         });
       };
 
-      handleClick=async(userSelected)  =>{ 
-        await this.setState({userdetail:userSelected})
-        console.log(this.state.userdetail);
-    };
      
 
        handlePadre= async (numeroHijo)=>{
@@ -90,38 +88,87 @@ export default class App extends React.Component {
         console.log(this.state.detail);
         
       };
-    
-      DetailOn=()=>{ 
-       
-        this.setState({ detail: true  }); 
-        console.log(this.state.detail);
-        this.handleClick();
+
+      handleClick= async (userSelected)=>{
+        await this.setState({userdetail: userSelected});
+        
+        console.log(this.state.userdetail);
+        
       };
     
-      
+      DetailOn=()=>{ 
+    
+        this.setState({ detail: true  }); 
+        
+        
+        
+      };
+    
+      Detail=async({currentTarget})  =>{ 
+     
+
+         const seleccionado = this.state.users.find(user => 
+         user.login.uuid === currentTarget.id) 
+      await  this.setState({userdetail :seleccionado});
+   
+      console.log(currentTarget.id);
+  
+      console.log(this.state.userdetail);
+  
+    };
 
   render() {
-
-    const { users, isLoading, errorMsg, detail} = this.state;
+   
+    const { users, isLoading, errorMsg, detail, userdetail} = this.state;
    
     return (
       <div>
 
      
       <div className="main-section" >
+      {detail &&<DetailClose  handlePadre={this.handlePadre} userdetail={userdetail} />}
+   
+        <div className="row" onClick={this.DetailOn}>
+     {
+        users.map((user) =>(
+ 
+ 
+  
+         
+            <div  key={user.login.uuid} value={user.login.uuid} className="user col s6 m3 l2" >
+          
+        <div id={user.login.uuid} className="card small " onClick={this.Detail}>
+            <div className="center-align ">
+                <img src={user.picture.medium} alt={user.name.first} className="circle responsive-img " />
+            </div>
+            <div className="center-align ">
+                <div className="name">
+                 {user.name.first}, {user.name.last}
+                </div>
+                <div className="city">
+                 {user.location.city}
+                </div>
+                <div>
+                 {user.location.country}
+                </div>
+            </div>
+        </div>
+      </div>
+       
+))
+        
 
-        <div onClick={this.DetailOn}>
-        {detail &&<DetailClose  handlePadre={this.handlePadre} Detail={this.handleClick}/>}
-        <UsersList users={users} />
+        }  
+
         
         </div>
         
         {isLoading && <p className="loading">Loading...</p>}
         {errorMsg && <p className="errorMsg">{errorMsg}</p>}
         
-        <div className="load-more">
-        <button onClick={this.loadMore} className="waves-effect waves-light btn-large"><i className="material-icons left">filter_9_plus</i>
-          {isLoading ? 'Loading...' : 'Load More'}
+                <div className="load-more ">
+                    <button onClick={this.loadMore} className=" row btn-floating light red "><div><i className="material-icons icono col s6 m6 l6">filter_9_plus</i></div>
+                        <div className="Info text col s6 m6 l6">{isLoading ? 'Loading...' : 'Load More'}</div>
         </button>
       </div>
         

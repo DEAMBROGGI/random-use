@@ -10,7 +10,7 @@ const UsersList = ({ users }) => {
 
 
   return (
-    <div className="user-list">
+    <div type="select" className="user-list">
       {users && users.map((user) => <User key={user.login.uuid} {...user} />)}
      
      
