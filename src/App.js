@@ -1,12 +1,7 @@
 import React from 'react';
 import DetailClose from './components/DetailClose';
 import axios from 'axios';
-import UsersList from './components/UsersList';
-import User from './components/User';
 import 'materialize-css/dist/css/materialize.min.css';
-
-
-
 
 export default class App extends React.Component {
   constructor(props) {

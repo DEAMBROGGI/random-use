@@ -1,10 +1,6 @@
 
 import React  from "react";
 
-
-
-
-
 class DetailClose extends React.Component{
 
   constructor(props) {
@@ -13,15 +9,10 @@ class DetailClose extends React.Component{
 this.state={
   numeroHijo:false,
   userSelect:""
-  
 
 }
 
   }
-  
-  
-
- 
 
 DetailOff=()=>{
 
@@ -34,16 +25,11 @@ DetailOff=()=>{
   
 };
 
-
     render(){
-    
-     
+ 
   return (
   
       <div className="row detalle  ">
-
-
-
 
           <div className="col detalle s12 m11 l7 center-align">
               <div className=" col s12 m12 l12 detalle">
@@ -72,8 +58,5 @@ DetailOff=()=>{
   );
 };
 }
-
-
-
 
 export default DetailClose;
